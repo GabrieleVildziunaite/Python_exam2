@@ -1,0 +1,17 @@
+{% extends 'admin/templates/admin_template.html' %} {% block title %} {{ title
+}} {% endblock %} {% block main %}
+<h2 style="text-align: center">{{title}}</h2>
+{% for row in allData %}
+<div class="container mt-1">
+  <h3>{{ row['name'] }}</h3>
+  <p>{{ row['date'] }}, <i>{{ row['author'] }}</i></p>
+
+  <p>
+    <a class="violet" href="{{url_for('article', title=row['name'])}}">
+      see all expenses in group {{ row['name'] }}
+    </a>
+  </p>
+  <hr class="violet" />
+</div>
+
+{% endfor %} {% endblock %}

@@ -1,0 +1,143 @@
+{% extends 'admin/templates/admin_template.html' %} {% block title %} {{ title
+}} {% endblock %} {% block main %}
+<div class="container mt-1">
+  <div class="row">
+    <div class="col">
+      <h2 align="center">{{ title2 }}</h2>
+      <hr />
+
+      <p>
+        Add a new bill or a new group:
+        <button
+          type="button"
+          class="btn btn-success btn-sm m-3"
+          data-bs-toggle="modal"
+          data-bs-target="#modelis"
+        >
+          Add a new entry
+        </button>
+      </p>
+
+      <table class="table table-hover table-success table-striped">
+        <tr>
+          <th>Group</th>
+          <th>Expense description</th>
+          <th>Who paid</th>
+          <th>Amount/Eur</th>
+          <th>Nr. of people involved</th>
+          <th>Date</th>
+        </tr>
+
+        {% for row in allData %}
+
+        <tr>
+          <td>
+            <a
+              class="billLinks"
+              href="{{url_for('article', title=row['name'])}}"
+              >{{row.name}}</a
+            >
+          </td>
+          <td>{{row.description}}</td>
+          <td>{{row.author}}</td>
+          <td>{{row.amount}}</td>
+          <td>{{row.number}}</td>
+          <td>{{row.date}}</td>
+        </tr>
+
+        <div class="modal" id="modelis">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-secondary">
+                <h4 class="modal-title text-light">Enter a new expense</h4>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                ></button>
+              </div>
+
+              <div class="modal-body bg-success text-light">
+                <form action="{{ url_for('insert') }}" method="POST">
+                  <div class="form-group">
+                    <label> Title: </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="name"
+                      required="1"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label> Description: </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="description"
+                      required="1"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label> Nr. of people: </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="number"
+                      required="1"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label> Amount: </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="amount"
+                      required="1"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label> Who paid </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="author"
+                      required="1"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label> Date: </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="date"
+                      required="1"
+                    />
+                  </div>
+                  <div class="form-group mt-3">
+                    <button class="btn btn-info" type="submit">
+                      Save the expense
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="modal-footer bg-secondary">
+                <button
+                  type="button"
+                  class="btn btn-muted"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
